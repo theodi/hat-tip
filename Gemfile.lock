@@ -12,9 +12,10 @@ GIT
 
 GEM
   remote: https://rubygems.org/
+  remote: http://gems.github.com/
   specs:
     addressable (2.3.5)
-    backports (3.3.3)
+    backports (3.3.5)
     curb (0.8.5)
     ebnf (0.3.1)
       rdf
@@ -44,7 +45,7 @@ GEM
       rdf-turtle (>= 1.0.9)
     mime-types (1.25)
     mini_portile (0.5.1)
-    multi_json (1.7.9)
+    multi_json (1.8.1)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     rack (1.5.2)

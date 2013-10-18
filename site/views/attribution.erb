@@ -1,0 +1,57 @@
+  <div class="row-fluid">
+    <div class="span12">
+        <h2>Attribute This Dataset</h2>
+        
+            <% if @attribution_data[:attribution_text] %>
+                <p>The creator of this data has specified the attribution text they would like you to use:</p>            
+                <div class="well">
+                    <a href="<%= attribution_url( @attribution_data ) %>"><%= @attribution_data[:attribution_text] %></a>
+                </div>
+            <% else %>
+            
+                <% text = attribution_text(@attribution_data) %>
+    
+                <% if text %>
+                    <p>The creator of the data has not specified the attribution text to use. Here are some possible formats for attributing this dataset:</p>
+                    
+                    <div class="well">
+                        Uses data supplied by <a href="<%= attribution_url( @attribution_data ) %>"><%= text %></a>
+                    </div>
+    
+                    <% if @attribution_data[:title] %>
+                        <p>
+                        Or:
+                        </p>                
+                        <div class="well">
+                            Uses data from "<a href="<%= attribution_url( @attribution_data ) %>"><%= @attribution_data[:title] %></a>", supplied by <a href="<%= attribution_url( @attribution_data ) %>"><%= text %></a>
+                        </div>                
+                    <% end %>
+                            
+
+                <% else %>
+                    <p>Unable to build text for attribution link from metadata</p>                
+                <% end %>
+            <% end %>                
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12">
+        <h2>Cite This Dataset</h2>
+        
+        <div class="well">
+            TODO
+        </div>
+        
+    </div>
+  </div>
+
+  <div class="row-fluid">
+    <div class="span12">
+        <h2>Explanation</h2>
+        
+        <div class="well">
+            <pre><%= JSON.pretty_generate( @attribution_data ) %></pre>                    
+        </div>            
+    </div>
+  </div>
