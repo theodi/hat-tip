@@ -14,15 +14,15 @@
                 <% if text %>
                     <p>The creator of the data has not specified the attribution text to use. Here are some possible formats for attributing this dataset:</p>
                     
-                    <% if @attribution_data[:title] && !@attribution_data[:publisher_name] %>
+                    <% if @attribution_data[:title] %>
                         <div class="well">
-                            Uses data from <a href="<%= attribution_url( @attribution_data ) %>"><%= text %></a>
+                            Uses data from <a href="<%= attribution_url( @attribution_data ) %>"><%= @attribution_data[:title] %></a>
                         </div>
                     <% end %>
                     
-                    <% if !@attribution_data[:title] && @attribution_data[:publisher_name] %>
+                    <% if @attribution_data[:publisher_name] %>
                         <div class="well">
-                            Uses data supplied by <a href="<%= attribution_url( @attribution_data ) %>"><%= text %></a>
+                            Uses data supplied by <a href="<%= attribution_url( @attribution_data ) %>"><%= @attribution_data[:publisher_name] %></a>
                         </div>
                     <% end %>                    
                         
