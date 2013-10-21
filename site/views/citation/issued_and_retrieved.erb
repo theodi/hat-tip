@@ -1,0 +1,6 @@
+<p><%= @attribution_data[:title] %><br>
+<a href="<%= @attribution_data[:access_url] %>"><%= @attribution_data[:access_url] %></a><br>
+<% if @attribution_data[:publisher_name] %><%= @attribution_data[:publisher_name] %><% if @attribution_data[:issued] %>, <br><% else %><br><%end%><% end %>
+<% if @attribution_data[:issued] %>Issued <%= @attribution_data[:issued] %>.<% end %>
+Retrieved: <%= DateTime.now.strftime("%H:%M %b %d, %Y") %>
+</p>            
