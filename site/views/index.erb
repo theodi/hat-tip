@@ -28,12 +28,24 @@
                     </div>                                
                 <% end %>
                         
-            <form method="GET" action="" class="form-inline">
+            <form method="GET" action="" id="lookup-form" class="form-inline">
                 <input type="text" id="url" 
                     name="url" class="input-xxlarge" 
                     placeholder="Dataset URL" value="<%= params[:url] %>">
-                <button type="submit" class="btn">Attribute</button>
+                <button type="submit" id="lookup" class="btn">Lookup</button>
             </form>
+                <div id="examples">
+                    <p>Try an example URL: 
+                    <a href="http://data.gov.uk/dataset/renewables_obligation-certificates_and_generation" 
+                       class="example">data.gov.uk</a>,
+                    <a href="http://dx.doi.org/10.6084/m9.figshare.818981" 
+                       class="example">DOI</a>,
+                    <a href="http://data.ordnancesurvey.co.uk/id/data/os-linked-data" 
+                       class="example">Linked Data</a>,
+                    <a href="https://github.com/theodi/dataset-mod-disposals.git"
+                       class="example">Github</a>
+                    </p>                   
+                </div>
             
         </div>              
     </div>
