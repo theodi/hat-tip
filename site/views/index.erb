@@ -12,34 +12,29 @@
       
       <div class="row-fluid">
         <div class="span12 pagination-centered">
+                <% if @error %>
+                    <div class="alert alert-error">
+                        <p><strong>Sorry!</strong> error encountered processing dataset metadata<p>
+                    </div>                
+                <% end %>                
+                <% if !found_metadata?(@attribution_data) %>
+                    <div class="alert alert-warning">
+                        <p><strong>Sorry!</strong> but we couldn't find any machine-readable metadata for that dataset url<p>
+                    </div>                
+                <% end %>
+                        
             <form method="GET" action="" class="form-inline">
-                <input type="text" id="url" name="url" class="input-xxlarge" placeholder="Dataset URL" value="<%= params[:url] %>">
+                <input type="text" id="url" 
+                    name="url" class="input-xxlarge" 
+                    placeholder="Dataset URL" value="<%= params[:url] %>">
                 <button type="submit" class="btn">Attribute</button>
             </form>
+            
         </div>              
-      </div>
-      
-      <% if @error %>
-         <div class="row-fluid">
-            <div class="span12">
-                <div class="alert alert-error">
-                    <p><strong>Sorry!</strong> error encountered processing dataset metadata<p>
-                </div>                
-            </div>
-          </div>               
-      <% end %>
-      
+            
       <% if found_metadata?(@attribution_data) %>
           <%= erb :attribution %>
-      <% else %>      
-          <div class="row-fluid">
-            <div class="span12">
-                <div class="alert alert-error">
-                    <p><strong>Sorry!</strong> but we couldn't find any machine-readable metadata for that dataset url<p>
-                </div>                
-            </div>
-          </div>          
       <% end %>
-      
+            
     </div>
 </div>

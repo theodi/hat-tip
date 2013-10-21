@@ -5,6 +5,10 @@ class DOIDataset < Dataset
         super( url, opts )
     end    
     
+    def supported?
+        publisher_name != nil
+    end
+    
     def publisher_home
         nil
     end

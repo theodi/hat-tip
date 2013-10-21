@@ -40,6 +40,8 @@ class HatTipApp < Sinatra::Base
                 @attribution_data = lookup(params[:url])
             end
         rescue => e
+            puts e
+            puts e.backtrace
             @error = e
         end
         erb :index
@@ -78,21 +80,25 @@ class HatTipApp < Sinatra::Base
     def fallback_lookup(attribution_data)
         if attribution_data[ :access_url ] =~ /dx.doi.org/
             dataset = DOIDataset.new(attribution_data[:access_url])
+            source = :doi
             attribution_data[ "_source" ] = :doi if dataset.supported?
-
         else
-            dataset = Datasetnew(attribution_data[ :access_url ])
-            attribution_data[ "_source" ] = :built_in if dataset.supported?
+            dataset = Dataset.new(attribution_data[ :access_url ])
+            source = :built_in            
         end
 
-        attribution_data[ :dataset_home ] = dataset.dataset_home
-        attribution_data[ :title ] = dataset.title
-        attribution_data[ :publisher_name ] = dataset.publisher_name
-        attribution_data[ :publisher_url ] = dataset.publisher_home
-        attribution_data[ :attribution_url ] = dataset.attribution_url
-        attribution_data[ :attribution_text ] = dataset.attribution_text
-        attribution_data[ :issued ] = dataset.issued
-        attribution_data[ :modified ] = dataset.modified
+        puts dataset.supported?
+        if dataset.supported?
+            attribution_data[ "_source" ] = source
+            attribution_data[ :dataset_home ] = dataset.dataset_home
+            attribution_data[ :title ] = dataset.title
+            attribution_data[ :publisher_name ] = dataset.publisher_name
+            attribution_data[ :publisher_url ] = dataset.publisher_home
+            attribution_data[ :attribution_url ] = dataset.attribution_url
+            attribution_data[ :attribution_text ] = dataset.attribution_text
+            attribution_data[ :issued ] = dataset.issued
+            attribution_data[ :modified ] = dataset.modified            
+        end
 
         attribution_data
     end
