@@ -18,6 +18,10 @@ class Dataset
         @publisher = find_publisher  
     end
     
+    def supported?
+        @dataset != nil
+    end
+        
     def uri
         return @dataset.to_s
     end

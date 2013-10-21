@@ -29,18 +29,16 @@
           </div>               
       <% end %>
       
-      <% if @attribution_data %>
-        <% if @attribution_data["_source"] %>
-            <%= erb :attribution %>
-        <% else %>
+      <% if found_metadata?(@attribution_data) %>
+          <%= erb :attribution %>
+      <% else %>      
           <div class="row-fluid">
             <div class="span12">
                 <div class="alert alert-error">
                     <p><strong>Sorry!</strong> but we couldn't find any machine-readable metadata for that dataset url<p>
                 </div>                
             </div>
-          </div>
-        <% end %>
+          </div>          
       <% end %>
       
     </div>

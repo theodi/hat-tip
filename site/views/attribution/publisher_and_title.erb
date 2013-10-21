@@ -1,0 +1,5 @@
+<% if @attribution_data[:title] && @attribution_data[:publisher_name] %>
+    <div class="well">
+        Uses data from "<a href="<%= attribution_url( @attribution_data ) %>"><%= @attribution_data[:title] %></a>", supplied by <a href="<%= attribution_url( @attribution_data ) %>"> <%= @attribution_data[:publisher_name] %></a>
+    </div>                
+<% end %>
