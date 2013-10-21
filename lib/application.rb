@@ -18,13 +18,12 @@ class HatTipApp < Sinatra::Base
         set :views, File.dirname(__FILE__) + "/../site/views"
         set :public_dir, File.dirname(__FILE__) + "/../site/public"
         set :partial_template_engine, :erb
+        def found_metadata?(data)
+            return data != nil && data["_source"] != nil
+        end        
         def can_build_attribution?(data)
             return true if data[:attribution_text] || data[:publisher_name] || data[:title]
             return false
-        end
-        def found_metadata?(data)
-            puts data.inspect
-            return data != nil && data["_source"] != nil
         end
         def attribution_url(data)
             return data[:attribution_url] if data[:attribution_url]

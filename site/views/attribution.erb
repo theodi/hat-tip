@@ -3,20 +3,23 @@
         <h2>Attribute This Dataset</h2>
         
             <% if @attribution_data[:attribution_text] %>
-                <p>The creator of this data has specified the attribution text they would like you to use:</p>            
+                <p>The publisher of this data has specified the exact text that they would like you to use when attributing this dataset. Please 
+                use the following format:
+                </p>        
+                    
                 <div class="well">
                     <a href="<%= attribution_url( @attribution_data ) %>"><%= @attribution_data[:attribution_text] %></a>
                 </div>
+                
             <% else %>                
                 <% if can_build_attribution?(@attribution_data) %>
-                    <p>The creator of the data has not specified the attribution text to use. Here are some possible formats for attributing this dataset:</p>
+                    <p>The creator of the data has not specified the attribution text to use. Here are some possible formats for attributing your 
+                    use of this dataset:</p>
                     
                     <%= partial( :"attribution/dataset_title" ) %>
                     <%= partial( :"attribution/publisher_name" ) %>
                     <%= partial( :"attribution/publisher_and_title" ) %>
-                        
-                <% else %>
-                    <p>Unable to build text for an attribution statement from the extracted metadata</p>                
+                                 
                 <% end %>
             <% end %>                
     </div>

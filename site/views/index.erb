@@ -21,6 +21,11 @@
                     <div class="alert alert-warning">
                         <p><strong>Sorry!</strong> but we couldn't find any machine-readable metadata for that dataset url<p>
                     </div>                
+                <% end %>                
+                <% if !can_build_attribution?(@attribution_data) %>
+                    <div class="alert alert-warning">
+                        <p><strong>Sorry!</strong> but we can't build attribution or citation links as the required metadata is not available.<p>
+                    </div>                                
                 <% end %>
                         
             <form method="GET" action="" class="form-inline">
@@ -32,7 +37,7 @@
             
         </div>              
             
-      <% if found_metadata?(@attribution_data) %>
+      <% if found_metadata?(@attribution_data) && can_build_attribution?(@attribution_data) %>
           <%= erb :attribution %>
       <% end %>
             
