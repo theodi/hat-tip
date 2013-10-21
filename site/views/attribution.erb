@@ -1,7 +1,10 @@
 <div class="row-fluid">
     <div class="span12">
         <h2>Attribute This Dataset</h2>
-        
+    </div>
+</div>    
+<div class="row-fluid">
+    <div class="span8">
             <% if @attribution_data[:attribution_text] %>
                 <p>The publisher of this data has specified the exact text that they would like you to use when attributing this dataset. Please 
                 use the following format:
@@ -16,36 +19,31 @@
                     <p>The creator of the data has not specified the attribution text to use. Here are some possible formats for attributing your 
                     use of this dataset:</p>
                     
-                    <%= partial( :"attribution/dataset_title" ) %>
                     <%= partial( :"attribution/publisher_name" ) %>
+                    <%= partial( :"attribution/dataset_title" ) %>                    
                     <%= partial( :"attribution/publisher_and_title" ) %>
-                                 
+
                 <% end %>
             <% end %>                
     </div>
-</div>
-
-<div class="row-fluid">
-    <div class="span12">
-        <h2>Cite This Dataset</h2>
-        
-        <div class="well">
-            <p><%= @attribution_data[:title] %><br>
-            <a href="<%= @attribution_data[:access_url] %>"><%= @attribution_data[:access_url] %></a><br>
-            <% if @attribution_data[:publisher_name] %><%= @attribution_data[:publisher_name] %><% if @attribution_data[:issued] %>, <%end%><% end %><% if @attribution_data[:issued] %><%= @attribution_data[:issued] %><% end %>
-            </p>
-            
-        </div>
-        
+    <div class="span4">
+        <p>Providing correct attribution of the source of your data is a common requirement of many open data licenses. It is also a good 
+        community norm to adopt as it helps recognise the efforts of the publisher of the data.</p>
+        <% if @attribution_data[:attribution_text] %>
+        <p>        
+        In this instance the publisher has specified the exact attribution text they would like used, and you are strongly recommended to 
+        use that where possible.
+        </p>
+        <% else %>
+        <p>
+        In this instance the publisher has not specified the exact text to use. The attribution formats shown here illustrate ways to attribute 
+        the publisher, the individual dataset or a combination of both.
+        </p>
+        <p>
+        If you are the publisher of this dataset, then the <a href="https://github.com/theodi/open-data-licensing/blob/master/guides/publisher-guide.md">publishers guide to the Open Data Rights Statement vocabulary</a> includes examples of 
+        how to publish a machine-readable description of your preferred attribution text and URL.
+        </p>
+        <% end %>
     </div>
 </div>
 
-  <div class="row-fluid">
-    <div class="span12">
-        <h2>Explanation</h2>
-        
-        <div class="well">
-            <pre><%= JSON.pretty_generate( @attribution_data ) %></pre>                    
-        </div>            
-    </div>
-  </div>

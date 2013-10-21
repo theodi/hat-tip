@@ -1,0 +1,24 @@
+<div class="row-fluid">
+    <div class="span12">
+        <h2>Cite This Dataset</h2>
+    </div>
+</div>    
+<div class="row-fluid">
+    <div class="span8">
+        <div class="well">
+            <p><%= @attribution_data[:title] %><br>
+            <a href="<%= @attribution_data[:access_url] %>"><%= @attribution_data[:access_url] %></a><br>
+            <% if @attribution_data[:publisher_name] %><%= @attribution_data[:publisher_name] %><% if @attribution_data[:issued] %>, <%end%><% end %><% if @attribution_data[:issued] %><%= @attribution_data[:issued] %><% end %>
+            </p>
+            
+        </div>
+    </div>
+    <div class="span4">
+        <p>Citations are typically more formal ways to link to a data source. While attribution statements are usually used to 
+        acknowledge the efforts of a data publisher, a citation is usually intended to help a user understand which dataset (and version of that 
+        dataset) was used in an application or analysis. E.g. to allow a user to recreate the analysis.</p>
+        <p>
+        Even if you plan to include a formal citation of a dataset, you may also need to include an attribution statement as well.
+        </p>
+    </div>
+</div>

@@ -36,10 +36,14 @@
             </form>
             
         </div>              
-            
+    </div>
+                
       <% if found_metadata?(@attribution_data) && can_build_attribution?(@attribution_data) %>
           <%= erb :attribution %>
+          <%= erb :citation %>
       <% end %>
-            
-    </div>
+      
+      <% if found_metadata?(@attribution_data) %>
+          <%= erb :data %>
+      <% end %>
 </div>
