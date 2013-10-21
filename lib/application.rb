@@ -59,8 +59,8 @@ class HatTipApp < Sinatra::Base
             attribution_data["_source" ] = :data_kitten
             attribution_data[ :dataset_home ] = access_url
             attribution_data[ :title ] = dataset.data_title
-            attribution_data[ :issued ] = dataset.issued
-            attribution_data[ :modified ] = dataset.modified
+            attribution_data[ :issued ] = format_date( dataset.issued )
+            attribution_data[ :modified ] = format_date( dataset.modified )
             if dataset.rights
                 attribution_data[ :attribution_url ] = dataset.rights.attribution_url
                 attribution_data[ :attribution_text ] = dataset.rights.attribution_text
@@ -95,13 +95,24 @@ class HatTipApp < Sinatra::Base
             attribution_data[ :publisher_url ] = dataset.publisher_home
             attribution_data[ :attribution_url ] = dataset.attribution_url
             attribution_data[ :attribution_text ] = dataset.attribution_text
-            attribution_data[ :issued ] = dataset.issued
-            attribution_data[ :modified ] = dataset.modified            
+            attribution_data[ :issued ] = format_date( dataset.issued )
+            attribution_data[ :modified ] = format_date( dataset.modified )            
         end
 
         attribution_data
     end
 
+    def format_date( date )
+        return nil if date == nil
+        if date.class == Date || date.class == DateTime
+            return date.strftime("%b %d, %Y")
+        end
+        if date.match(/[0-9]{4}/)
+            return date
+        end
+        return Date.parse( date ).strftime("%b %d, %Y")
+    end
+    
     #Debugging tool, dump metadata as JSON
     get "/data" do
         attribution_data = lookup( params[:url] )

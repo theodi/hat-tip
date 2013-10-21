@@ -16,18 +16,18 @@
                     <div class="alert alert-error">
                         <p><strong>Sorry!</strong> error encountered processing dataset metadata<p>
                     </div>                
-                <% end %>                
-                <% if params[:url] && !found_metadata?(@attribution_data) %>
-                    <div class="alert alert-warning">
-                        <p><strong>Sorry!</strong> but we couldn't find any machine-readable metadata for that dataset url<p>
-                    </div>                
-                <% end %>                
-                <% if params[:url] && found_metadata?(@attribution_data) && !can_build_attribution?(@attribution_data) %>
-                    <div class="alert alert-warning">
-                        <p><strong>Sorry!</strong> but we can't build attribution or citation links as the required metadata is not available.<p>
-                    </div>                                
-                <% end %>
-                        
+                <% else %>                
+                    <% if params[:url] && !found_metadata?(@attribution_data) %>
+                        <div class="alert alert-warning">
+                            <p><strong>Sorry!</strong> but we couldn't find any machine-readable metadata for that dataset url<p>
+                        </div>                
+                    <% end %>                
+                    <% if params[:url] && found_metadata?(@attribution_data) && !can_build_attribution?(@attribution_data) %>
+                        <div class="alert alert-warning">
+                            <p><strong>Sorry!</strong> but we can't build attribution or citation links as the required metadata is not available.<p>
+                        </div>                                
+                    <% end %>
+                <% end %>                        
             <form method="GET" action="" id="lookup-form" class="form-inline">
                 <input type="text" id="url" 
                     name="url" class="input-xxlarge" 
