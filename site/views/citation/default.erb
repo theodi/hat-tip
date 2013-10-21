@@ -1,0 +1,4 @@
+<p><%= @attribution_data[:title] %><br>
+<a href="<%= @attribution_data[:access_url] %>"><%= @attribution_data[:access_url] %></a><br>
+<% if @attribution_data[:publisher_name] %><%= @attribution_data[:publisher_name] %><% if @attribution_data[:issued] %>, <%end%><% end %><% if @attribution_data[:issued] %><%= @attribution_data[:issued] %><% end %>
+</p>            

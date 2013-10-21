@@ -7,30 +7,19 @@
     <div class="span8">
         
         <div class="well">
-            <p><%= @attribution_data[:title] %><br>
-            <a href="<%= @attribution_data[:access_url] %>"><%= @attribution_data[:access_url] %></a><br>
-            <% if @attribution_data[:publisher_name] %><%= @attribution_data[:publisher_name] %><% if @attribution_data[:issued] %>, <%end%><% end %><% if @attribution_data[:issued] %><%= @attribution_data[:issued] %><% end %>
-            </p>            
-        </div>
-        
+            <a href="/embed?url=<%=params[:url]%>&style=citation/default" class="embed">Use</a>
+            <%= partial( :"citation/default" ) %>            
+        </div>                                
         <% if @attribution_data[:issued] && @attribution_data[:modified] %>
+            <div class="well">
+                <a href="/embed?url=<%=params[:url]%>&style=citation/issued_and_modified" class="embed">Use</a>
+                <%= partial( :"citation/issued_and_modified" ) %>
+            </div>                
+        <% end %>                    
         <div class="well">
-            <p><%= @attribution_data[:title] %><br>
-            <a href="<%= @attribution_data[:access_url] %>"><%= @attribution_data[:access_url] %></a><br>
-            <% if @attribution_data[:publisher_name] %><%= @attribution_data[:publisher_name] %>, <% end %>Issued: <%= @attribution_data[:issued] %>.
-            Modified: <%= @attribution_data[:modified] %>
-            </p>            
-        </div>         
-        <% end %>
-        
-        <div class="well">
-            <p><%= @attribution_data[:title] %><br>
-            <a href="<%= @attribution_data[:access_url] %>"><%= @attribution_data[:access_url] %></a><br>
-            <% if @attribution_data[:publisher_name] %><%= @attribution_data[:publisher_name] %><% if @attribution_data[:issued] %>, <br><% else %><br><%end%><% end %>
-            <% if @attribution_data[:issued] %>Issued <%= @attribution_data[:issued] %>.<% end %>
-            Retrieved: <%= DateTime.now.strftime("%H:%M %b %d, %Y") %>
-            </p>            
-        </div>        
+            <a href="/embed?url=<%=params[:url]%>&style=citation/issued_and_retrieved" class="embed">Use</a>
+            <%= partial( :"citation/issued_and_retrieved" ) %>            
+        </div>            
                 
     </div>
     <div class="span4">

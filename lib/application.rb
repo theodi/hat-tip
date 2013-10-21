@@ -113,6 +113,14 @@ class HatTipApp < Sinatra::Base
         return Date.parse( date ).strftime("%b %d, %Y")
     end
     
+    get "/embed" do
+        if !params[:url] || !params[:style]
+            halt 400
+        end        
+        @attribution_data = lookup( params[:url] )
+        erb :"#{params[:style]}", :layout => false        
+    end
+    
     #Debugging tool, dump metadata as JSON
     get "/data" do
         attribution_data = lookup( params[:url] )
