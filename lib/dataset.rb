@@ -63,11 +63,17 @@ class Dataset
     end
 
     def issued
-        return first_literal([ RDF::DC.issued, RDF::DC.created ])
+        date = first_literal([ RDF::DC.issued, RDF::DC.created ])
+        if date
+            return Date.parse( date )
+        end
     end
     
     def modified
-        return literal( RDF::DC.modified, @dataset)
+        date = literal( RDF::DC.modified, @dataset)
+        if date
+            return Date.parse ( date )
+        end
     end
     
     private

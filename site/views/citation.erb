@@ -5,13 +5,33 @@
 </div>    
 <div class="row-fluid">
     <div class="span8">
+        
         <div class="well">
             <p><%= @attribution_data[:title] %><br>
             <a href="<%= @attribution_data[:access_url] %>"><%= @attribution_data[:access_url] %></a><br>
             <% if @attribution_data[:publisher_name] %><%= @attribution_data[:publisher_name] %><% if @attribution_data[:issued] %>, <%end%><% end %><% if @attribution_data[:issued] %><%= @attribution_data[:issued] %><% end %>
-            </p>
-            
+            </p>            
         </div>
+        
+        <% if @attribution_data[:issued] && @attribution_data[:modified] %>
+        <div class="well">
+            <p><%= @attribution_data[:title] %><br>
+            <a href="<%= @attribution_data[:access_url] %>"><%= @attribution_data[:access_url] %></a><br>
+            <% if @attribution_data[:publisher_name] %><%= @attribution_data[:publisher_name] %>, <% end %>Issued: <%= @attribution_data[:issued] %>.
+            Modified: <%= @attribution_data[:modified] %>
+            </p>            
+        </div>         
+        <% end %>
+        
+        <div class="well">
+            <p><%= @attribution_data[:title] %><br>
+            <a href="<%= @attribution_data[:access_url] %>"><%= @attribution_data[:access_url] %></a><br>
+            <% if @attribution_data[:publisher_name] %><%= @attribution_data[:publisher_name] %><% if @attribution_data[:issued] %>, <br><% else %><br><%end%><% end %>
+            <% if @attribution_data[:issued] %>Issued <%= @attribution_data[:issued] %>.<% end %>
+            Retrieved: <%= DateTime.now.strftime("%H:%M %b %d, %Y") %>
+            </p>            
+        </div>        
+                
     </div>
     <div class="span4">
         <p>Citations are typically more formal ways to link to a data source. While attribution statements are usually used to 
