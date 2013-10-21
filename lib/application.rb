@@ -67,7 +67,7 @@ class HatTipApp < Sinatra::Base
             end
             if dataset.publishers && dataset.publishers.length > 0
                 attribution_data[ :publisher_name ] = dataset.publishers.first.name
-                attribution_data[ :publisher_url ] = dataset.publishers.first.homepage
+                attribution_data[ :publisher_url ] = dataset.publishers.first.homepage                    
             end
         else
             return fallback_lookup(attribution_data)
