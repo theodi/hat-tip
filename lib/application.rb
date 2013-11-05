@@ -54,52 +54,41 @@ class HatTipApp < Sinatra::Base
             :access_url => access_url
         }
 
-        dataset = DataKitten::Dataset.new(:access_url => access_url)
-        if dataset.supported?
-            attribution_data["_source" ] = :data_kitten
-            attribution_data[ :dataset_home ] = access_url
-            attribution_data[ :title ] = dataset.data_title
-            attribution_data[ :issued ] = format_date( dataset.issued )
-            attribution_data[ :modified ] = format_date( dataset.modified )
-            if dataset.rights
-                attribution_data[ :attribution_url ] = dataset.rights.attribution_url
-                attribution_data[ :attribution_text ] = dataset.rights.attribution_text
-            end
-            if dataset.publishers && dataset.publishers.length > 0
-                attribution_data[ :publisher_name ] = dataset.publishers.first.name
-                attribution_data[ :publisher_url ] = dataset.publishers.first.homepage                    
+        if attribution_data[ :access_url ] =~ /dx.doi.org/
+            dataset = DOIDataset.new(access_url)                
+            if dataset.supported?
+                attribution_data[ "_source" ] = :doi
+                attribution_data[ :dataset_home ] = dataset.dataset_home
+                attribution_data[ :title ] = dataset.title
+                attribution_data[ :publisher_name ] = dataset.publisher_name
+                attribution_data[ :publisher_url ] = dataset.publisher_home
+                attribution_data[ :attribution_url ] = dataset.attribution_url
+                attribution_data[ :attribution_text ] = dataset.attribution_text
+                attribution_data[ :issued ] = format_date( dataset.issued )
+                attribution_data[ :modified ] = format_date( dataset.modified )            
             end
         else
-            return fallback_lookup(attribution_data)
+            dataset = DataKitten::Dataset.new(:access_url => access_url)
+            if dataset.publishing_format
+                attribution_data["_source" ] = :data_kitten
+                attribution_data[ :dataset_home ] = access_url
+                attribution_data[ :title ] = dataset.data_title
+                attribution_data[ :issued ] = format_date( dataset.issued )
+                attribution_data[ :modified ] = format_date( dataset.modified )
+                if dataset.rights
+                    attribution_data[ :attribution_url ] = dataset.rights.attribution_url
+                    attribution_data[ :attribution_text ] = dataset.rights.attribution_text
+                end
+                if dataset.publishers && dataset.publishers.length > 0
+                    attribution_data[ :publisher_name ] = dataset.publishers.first.name
+                    attribution_data[ :publisher_url ] = dataset.publishers.first.homepage                    
+                end
+            else
+                puts "Dataset #{access_url} not supported"
+            end            
         end
 
         return attribution_data
-    end
-
-    def fallback_lookup(attribution_data)
-        if attribution_data[ :access_url ] =~ /dx.doi.org/
-            dataset = DOIDataset.new(attribution_data[:access_url])
-            source = :doi
-            attribution_data[ "_source" ] = :doi if dataset.supported?
-        else
-            dataset = Dataset.new(attribution_data[ :access_url ])
-            source = :built_in            
-        end
-
-        puts dataset.supported?
-        if dataset.supported?
-            attribution_data[ "_source" ] = source
-            attribution_data[ :dataset_home ] = dataset.dataset_home
-            attribution_data[ :title ] = dataset.title
-            attribution_data[ :publisher_name ] = dataset.publisher_name
-            attribution_data[ :publisher_url ] = dataset.publisher_home
-            attribution_data[ :attribution_url ] = dataset.attribution_url
-            attribution_data[ :attribution_text ] = dataset.attribution_text
-            attribution_data[ :issued ] = format_date( dataset.issued )
-            attribution_data[ :modified ] = format_date( dataset.modified )            
-        end
-
-        attribution_data
     end
 
     def format_date( date )
